@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect
 import psycopg2
 import os
 
@@ -23,8 +23,18 @@ def home():
     cur.close()
     conn.commit()
     conn.close()
-    return f'Hello, this is a ToDo App! IGOR<br>Tasks: {tasks}'
+    return render_template('index.html', tasks=tasks, extra="Test change")
+
+@app.route('/add', methods=['POST'])
+def add_task():
+    task = request.form['task']
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('INSERT INTO todos (task) VALUES (%s);', (task,))
+    cur.close()
+    conn.commit()
+    conn.close()
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
