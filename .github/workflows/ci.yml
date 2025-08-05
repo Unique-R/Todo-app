@@ -25,11 +25,13 @@ jobs:
       - name: Test Docker image
         run: |
           docker compose up -d
-          sleep 10 # Дадим время на запуск
+          sleep 15 # Увеличим время на запуск
           if [ "$(docker ps -q -f name=todo_app_1)" ]; then
             echo "App container is running"
+            docker logs todo_app_1
           else
             echo "App container failed to start"
+            docker logs todo_app_1 || echo "No logs available"
             exit 1
           fi
           docker compose down
