@@ -26,12 +26,12 @@ jobs:
         run: |
           docker compose up -d
           sleep 15 # Увеличим время на запуск
-          if [ "$(docker ps -q -f name=todo_app_1)" ]; then
+          if [ "$(docker ps -q -f name=todo-app-1)" ]; then # Изменение: todo-app-1 вместо todo_app_1
             echo "App container is running"
-            docker logs todo_app_1
+            docker logs todo-app-1
           else
             echo "App container failed to start"
-            docker logs todo_app_1 || echo "No logs available"
+            docker logs todo-app-1 || echo "No logs available"
             exit 1
           fi
           docker compose down
