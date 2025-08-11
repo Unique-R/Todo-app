@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install dependencies
+        run: pip install flask
+        run: |
+          sudo apt-get install -y libpq-dev python3-dev
+          pip install psycopg2-binary flask
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -24,14 +29,14 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker compose up -d
-          sleep 15 # Увеличим время на запуск
-          if [ "$(docker ps -q -f name=todo-app-1)" ]; then # Изменение: todo-app-1 вместо todo_app_1
-            echo "App container is running"
-            docker logs todo-app-1
-          else
-            echo "App container failed to start"
-            docker logs todo-app-1 || echo "No logs available"
-            exit 1
-          fi
-          docker compose down
+         docker compose up -d
+         sleep 15
+         if [ "$(docker ps -q -f name=todo-app-1)" ]; then
+           echo "App container is running"
+           docker exec todo-app-1 python -m unittest discover app/tests/ -v
+         else
+           echo "App container failed to start"
+           docker logs todo-app-1 || echo "No logs available"
+           exit 1
+         fi
+         docker compose down

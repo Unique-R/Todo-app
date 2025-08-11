@@ -78,6 +78,11 @@ def edit_task(id):
     conn.close()
     return render_template('index.html', tasks=tasks, editing_task_id=id)
 
+@app.route('/health')
+def health_check():
+    return 'OK', 200
+
+
 @app.route('/toggle/<int:id>', methods=['POST'])
 def toggle_task(id):
     conn = get_db_connection()
