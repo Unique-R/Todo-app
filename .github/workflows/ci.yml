@@ -26,7 +26,7 @@ jobs:
           sleep 15
           if docker ps -q -f name=todo-app-1 | grep -q . ; then
             echo "App container is running"
-            docker exec todo-app-1 sh -c "cd /app && python -m unittest discover app/tests/ -v"
+            docker exec todo-app-1 sh -c "cd /app && python -m unittest discover -s tests -v"
           else
             echo "App container failed to start"
             docker compose logs || echo "No logs available"
