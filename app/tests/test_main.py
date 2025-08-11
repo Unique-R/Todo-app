@@ -1,5 +1,5 @@
 import unittest
-from app.main import app  # Предполагая, что main.py — это твой файл
+from main import app  # Предполагая, что main.py — это твой файл
 
 class TestToDoApp(unittest.TestCase):
     def setUp(self):
