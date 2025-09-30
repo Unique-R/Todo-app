@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>ToDo App</title></head>
+<body>
+    <h1>ToDo List for {{ session['username'] }}</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="/add">
+        <input type="text" name="task" placeholder="Enter a task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul>
+    {% for task in tasks %}
+        <li>{{ task[2] }} 
+            <a href="/delete/{{ task[0] }}">Delete</a>
+            <a href="/edit/{{ task[0] }}">Edit</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="/logout">Logout</a>
+</body>
+</html>
