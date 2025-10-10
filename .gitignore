@@ -3,3 +3,6 @@ __pycache__/
 .env
 *.log
 venv/
+__pycache__/
+*.pyc
+backup_*.sql
