@@ -1,11 +1,16 @@
-__pycache__/
+# Python
 *.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Environment
 .env
+
+# Logs
 *.log
-venv/
-__pycache__/
-*.pyc
-backup_*.sql
-__pycache__/
-*.pyc
-backup_*.sql
+logs/
+
+# Temporary files
+*.tmp
+*.bak
